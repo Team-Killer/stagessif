@@ -35,8 +35,6 @@ import {AdminParamService} from './services/admin-param.service';
               BaremeService,
               ParamBorneService,
               AdminParamService
-
-
      ],
   bootstrap: [AppComponent]
 })
