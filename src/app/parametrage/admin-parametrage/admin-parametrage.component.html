@@ -1,11 +1,76 @@
-<div class="panel panel-warning" *ngIf="!option">
+<div class="panel panel-warning" >
   <div class="panel-heading">
     <H1>Adminitration et parametrage</H1>
   </div>
   <div class="panel-body">
-    <div style="margin-top: 10px;">
+    <div class="row">
+      <div class="col-sm-8">
+        <table class="table  table-condensed table-striped table-bordered table-hover ">
+          <thead>
+          <tr>
+            <td>code</td>
+            <td>nom</td>
+            <td>abbreviation</td>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{parametrage?.centre?.codeBur}}
+            <td>{{parametrage?.centre?.nomCF}}
+              </td>
+            <td>{{parametrage?.centre?.abbrevCF}}
+              </td>
+
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+      <div class="col-sm-4">
+        <table class="table  table-condensed table-striped table-bordered table-hover ">
+          <thead>
+          <tr>
+            <td>Code</td>
+            <td>nom</td>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{parametrage?.centre?.categorie?.code}}
+            <td>{{parametrage?.centre?.categorie?.nom}}</td>
+
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
 
     </div>
+    <table class="table  table-condensed table-striped table-bordered table-hover ">
+         <thead>
+         <tr>
+           <td>Centre</td>
+           <td>abattement</td>
+           <td>taux IS</td>
+           <td>action</td>
+         </tr>
+         </thead>
+         <tbody>
+         <tr>
+           <td>{{parametrage?.centre?.codeBur}}
+           <td>{{parametrage?.abattement}}
+           %</td>
+           <td>{{parametrage?.tauxIS}}
+           %</td>
+           <td>
+             <button  class="btn btn-warning "><i class="fa fa-edit"></i>Editer</button>
+           </td>
+         </tr>
+         </tbody>
+
+    </table>
   </div>
 </div>
 
