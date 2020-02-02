@@ -42,4 +42,8 @@ export class BaremeService {
     return this.http.put(`${this.server.baseUrl+this.endpointAdmin}/${id}/${this.enable}`,bareme);
   }
 
+                                    /*** Simulation***/
+//0344394722
+
+
 }
