@@ -17,7 +17,7 @@ export class CaracteristiqueComponent implements OnInit {
     id: null,
     nom: null,
     abbrev: null,
-    type: null,
+    type: null as number,
   };
    mode:boolean=true;
   ngOnInit() {

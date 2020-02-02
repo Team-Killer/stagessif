@@ -14,6 +14,8 @@ import {BaremeService} from './services/bareme.service';
 import {ParamBorneService} from './services/param-borne.service';
 import { AdminParametrageComponent } from './parametrage/admin-parametrage/admin-parametrage.component';
 import {AdminParamService} from './services/admin-param.service';
+import {CentreFiscalService} from "./services/centre-fiscal.service";
+import { BaremesComponent } from './parametrage/baremes/baremes.component';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import {AdminParamService} from './services/admin-param.service';
     AppComponent,
     BaremSimulationComponent,
     CaracteristiqueComponent,
-    AdminParametrageComponent
+    AdminParametrageComponent,
+    BaremesComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import {AdminParamService} from './services/admin-param.service';
               CaracService,
               BaremeService,
               ParamBorneService,
-              AdminParamService
+              AdminParamService,
+              CentreFiscalService
      ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,98 @@
+<div class="panel panel-warning" *ngIf="option">
+  <div class="panel-heading">
+    <H1>Baremes</H1>
+  </div>
+  <div class="panel-body">
+    <table class="table  table-condensed table-striped table-bordered table-hover ">
+      <thead>
+      <tr>
+
+        <td>nom</td>
+        <td>Abbreviation</td>
+        <td>Etat</td>
+        <td>action</td>
+      </tr>
+      </thead>
+      <tbody *ngIf="mode" >
+      <tr *ngFor="let bareme of listeBaremes">
+
+        <td>{{bareme.nom}}</td>
+        <td>{{bareme.abbrev}}</td>
+        <td *ngIf="bareme.enabled">
+         Activer
+        </td>
+        <td *ngIf="!bareme.enabled">
+         Desactiver
+        </td>
+        <td>
+          <button style="margin-right: 4px;"
+                  (click)="editBarem(bareme.id)"  class="btn btn-warning "><i class="fa fa-edit"></i></button>
+          <button (click)="isEnabled(bareme.id,bareme.enabled)"
+                  *ngIf="bareme.enabled" style="margin-right: 4px;" class="btn btn-warning "><i class="fa fa-power-off"></i> </button>
+          <button (click)="isEnabled(bareme.id,bareme.enabled)"
+                  *ngIf="!bareme.enabled" class="btn btn-warning "><i class="fa fa-lightbulb"></i> </button>
+        </td>
+      </tr>
+
+      </tbody>
+      <tbody *ngIf="!mode">
+      <tr *ngFor="let bareme of listeBaremes">
+
+        <td>{{bareme.nom}}</td>
+        <td>{{bareme.abbrev}}</td>
+        <td *ngIf="bareme.enabled">
+          Activer
+        </td>
+        <td *ngIf="!bareme.enabled">
+          Desactiver
+        </td>
+        <td>
+          <button style="margin-right: 4px;"  (click)="editBarem(bareme.id)" class="btn btn-warning "><i class="fa fa-edit"></i></button>
+          <button (click)="isEnabled(bareme.id,bareme.enabled)"
+                  *ngIf="bareme.enabled" style="margin-right: 4px;" class="btn btn-warning "><i class="fa fa-power-off"></i> </button>
+          <button (click)="isEnabled(bareme.id,bareme.enabled)" *ngIf="!bareme.enabled" class="btn btn-warning "><i class="fa fa-lightbulb"></i> </button>
+        </td>
+      </tr>
+
+      </tbody>
+
+
+    </table>
+
+    <button class="btn btn-success" (click)="onNouveau()" ><i class="fa fa-plus"></i>Nouveau</button>
+  </div>
+
+
+</div>
+
+
+<div class="panel panel-warning" *ngIf="!option">
+  <div class="panel-heading">
+    <H1>{{addOrEdit}}</H1>
+  </div>
+  <div class="panel-body">
+    <div style="margin-top: 10px;">
+      <form  #barem="ngForm" (ngSubmit)="onSubmit(barem.value)">
+        <div  class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" class="form-control" id="nom"
+                 required [(ngModel)]="bareme.nom"  name="nom">
+        </div>
+        <div  class="form-group">
+          <label for="abbrev">Abbreviation</label>
+          <input type="text" class="form-control" id="abbrev"
+                 required [(ngModel)]="bareme.abbrev"   name="abbrev">
+        </div>
+
+
+
+
+        <input type="hidden" class="form-control" id="id" required [(ngModel)]="bareme.id"  name="id">
+        <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>
+          Effectuer</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+

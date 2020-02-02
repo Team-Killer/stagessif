@@ -15,4 +15,8 @@ export class AdminParamService {
   getListParametrage(): Observable<any>{
     return this.http.get(`${this.server.baseUrl + this.endpoint}`);
   }
+
+  updateParametrage(value :any) : Observable<any>{
+    return  this.http.put(`${this.server.baseUrl + this.endpointAdmin}`,value);
+  }
 }
