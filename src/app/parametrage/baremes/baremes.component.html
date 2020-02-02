@@ -26,7 +26,8 @@
         </td>
         <td>
           <button style="margin-right: 4px;"
-                  (click)="editBarem(bareme.id)"  class="btn btn-warning "><i class="fa fa-edit"></i></button>
+                  (click)="editBarem(bareme.id)"  class="btn btn-warning "
+                  data-toggle="tooltip" data-placement="left" title="Modifier" ><i class="fa fa-edit"></i></button>
           <button (click)="isEnabled(bareme.id,bareme.enabled)"
                   *ngIf="bareme.enabled" style="margin-right: 4px;" class="btn btn-warning "><i class="fa fa-power-off"></i> </button>
           <button (click)="isEnabled(bareme.id,bareme.enabled)"
@@ -47,7 +48,8 @@
           Desactiver
         </td>
         <td>
-          <button style="margin-right: 4px;"  (click)="editBarem(bareme.id)" class="btn btn-warning "><i class="fa fa-edit"></i></button>
+          <button style="margin-right: 4px;"  (click)="editBarem(bareme.id)" class="btn btn-warning "
+                  data-toggle="tooltip" data-placement="left" title="Modifier"><i class="fa fa-edit"></i></button>
           <button (click)="isEnabled(bareme.id,bareme.enabled)"
                   *ngIf="bareme.enabled" style="margin-right: 4px;" class="btn btn-warning "><i class="fa fa-power-off"></i> </button>
           <button (click)="isEnabled(bareme.id,bareme.enabled)" *ngIf="!bareme.enabled" class="btn btn-warning "><i class="fa fa-lightbulb"></i> </button>

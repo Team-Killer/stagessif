@@ -18,6 +18,7 @@ export class BaremesComponent implements OnInit {
     enabled: null as boolean,
   };
 
+
  /*situation=[
    {enabled:true,nom:"Activer"},
    {enabled:false,nom:"Desactiver"}
@@ -32,6 +33,9 @@ export class BaremesComponent implements OnInit {
   }
 
   onNouveau() {
+    this.bareme.nom=null;
+    this.bareme.abbrev=null;
+    this.bareme.id=null;
       this.option=false;
 
   }
@@ -68,8 +72,12 @@ export class BaremesComponent implements OnInit {
 
             this.getBaremList();
             this.mode=false;
+      this.bareme.nom=null;
+      this.bareme.abbrev=null;
+      this.bareme.id=null;
     });
     this.option=true;
+
 
   }
 
@@ -94,14 +102,23 @@ export class BaremesComponent implements OnInit {
          this.bareme=e;
          this.getBaremList();
          this.bareme.enabled =false;
+         this.bareme.nom=null;
+         this.bareme.abbrev=null;
+         this.bareme.id=null;
        });
+
+
      }
      else {
        this.baremeService.updateDesabledBarem(id,this.bareme).subscribe(e =>{
           this.bareme=e;
          this.getBaremList();
          this.bareme.enabled =true;
-       })
+       });
+       this.bareme.nom=null;
+       this.bareme.abbrev=null;
+       this.bareme.id=null;
+
      }
    }
    else {
@@ -111,6 +128,10 @@ export class BaremesComponent implements OnInit {
          this.getBaremList();
          this.bareme.enabled =false;
        });
+       this.bareme.nom="null";
+       this.bareme.abbrev=null;
+       this.bareme.id=null;
+
      }
      else {
        this.baremeService.updateDesabledBarem(id,this.bareme).subscribe(e =>{
@@ -118,8 +139,15 @@ export class BaremesComponent implements OnInit {
          this.getBaremList();
          this.bareme.enabled =true;
        });
+       this.bareme.nom=null;
+       this.bareme.abbrev=null;
+       this.bareme.id=null;
+
      }
    }
+    this.bareme.nom=null;
+    this.bareme.abbrev=null;
+    this.bareme.id=null;
   }
 
   updateBarem(){
@@ -129,6 +157,9 @@ export class BaremesComponent implements OnInit {
        this.getBaremList();
        this.mode=false;
        this.option=true;
+       this.bareme.nom=null;
+       this.bareme.abbrev=null;
+       this.bareme.id=null;
      })
   }
 
