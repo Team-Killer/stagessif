@@ -4,13 +4,15 @@ import {CaracteristiqueComponent} from './parametrage/caracteristique/caracteris
 import {AdminParametrageComponent} from './parametrage/admin-parametrage/admin-parametrage.component';
 import {BaremesComponent} from './parametrage/baremes/baremes.component';
 import {BaremSimulationComponent} from "./simulation/barem-simulation/barem-simulation.component";
+import {NifEvaluationComponent} from "./evaluation/nif-evaluation/nif-evaluation.component";
 
 
 const routes: Routes = [
   {path : 'caracteristiques' , component : CaracteristiqueComponent },
   {path :'parametrage' ,component: AdminParametrageComponent},
   {path :'baremes', component: BaremesComponent},
-  {path :'simulation/baremes', component: BaremSimulationComponent}
+  {path :'simulation/baremes', component: BaremSimulationComponent},
+  {path :'evaluation/nif_annee' ,component: NifEvaluationComponent}
 ];
 
 @NgModule({

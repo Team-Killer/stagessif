@@ -16,7 +16,20 @@ import { AdminParametrageComponent } from './parametrage/admin-parametrage/admin
 import {AdminParamService} from './services/admin-param.service';
 import {CentreFiscalService} from "./services/centre-fiscal.service";
 import { BaremesComponent } from './parametrage/baremes/baremes.component';
+import { NifEvaluationComponent } from './evaluation/nif-evaluation/nif-evaluation.component';
+import {EvaluationService} from "./services/evaluation.service";
+import { ParametrageBorneComponent } from './parametrage/parametrage-borne/parametrage-borne.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+/**material**/
+import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatInputModule} from "@angular/material/input";
+//import {MatFormFieldModule} from "@angular/material/typings/esm5/form-field";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,13 +37,21 @@ import { BaremesComponent } from './parametrage/baremes/baremes.component';
     BaremSimulationComponent,
     CaracteristiqueComponent,
     AdminParametrageComponent,
-    BaremesComponent
+    BaremesComponent,
+    NifEvaluationComponent,
+    ParametrageBorneComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatFormFieldModule,
+    NgbModule
   ],
   providers: [
               ServeurService,
@@ -38,7 +59,10 @@ import { BaremesComponent } from './parametrage/baremes/baremes.component';
               BaremeService,
               ParamBorneService,
               AdminParamService,
-              CentreFiscalService
+              CentreFiscalService,
+              EvaluationService,
+    NgbModalConfig,NgbModal
+
      ],
   bootstrap: [AppComponent]
 })

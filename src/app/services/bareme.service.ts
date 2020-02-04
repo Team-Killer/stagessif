@@ -11,6 +11,9 @@ export class BaremeService {
   private endpointAdmin = '/admin/baremes';
   private enable='activer';
   private desable='/desactiver';
+  private simuler='simuler';
+  private  caracNumerique='caracs-numeriques';
+//admin/baremes/{id_bareme}/caracs-numeriques
   constructor(private server:ServeurService , private http:HttpClient) { }
 
   getBaremList(): Observable<any> {
@@ -43,7 +46,14 @@ export class BaremeService {
   }
 
                                     /*** Simulation***/
-//0344394722
+   baremSelect(donnees:any,idBarem:string): Observable<any> {
+     return this.http.post(`${this.server.baseUrl+this.endpointAdmin}/${idBarem}/${this.simuler}`,donnees);
+   }
+
+
+   getCaractAssocieBareme(idBarem:string):Observable<any>{
+        return this.http.get(`${this.server.baseUrl+this.endpointAdmin}/${idBarem}/${this.caracNumerique}`);
+   }
 
 
 }

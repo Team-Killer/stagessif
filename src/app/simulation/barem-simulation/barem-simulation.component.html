@@ -1,1 +1,59 @@
-<p>barem-simulation works!</p>
+<div class="panel panel-warning" *ngIf="!enventIs">
+  <div class="panel-heading">
+    <H1>Borne infomatique pour IS transporteur</H1>
+  </div>
+  <div class="panel-body">
+
+    <div *ngFor="let barem of baremesList">
+      <button (click)="baremChoisi(barem.id)"  class="btnx btn btn-1 btn-block">{{barem.nom}}</button>
+    </div>
+
+  </div>
+</div>
+<div class="panel panel-warning" *ngIf="enventIs">
+  <div class="panel-heading">
+    <H1 *ngIf="tableRes?.bareme?.nom">Barem IS transporteur : {{tableRes.bareme.nom}}</H1>
+  </div>
+  <div class="panel-body">
+
+    <p>
+
+    </p>
+    <span *ngFor="let item of tableRes?.listePrevious">
+             <span>
+                 <b>{{item.carac.nom}}</b>
+             </span>
+             <span style="margin-right:4px; color: #fda085; ">
+               ( {{item.vo.libelle}} )
+            </span>
+        </span>
+    <span *ngIf="tableRes?.next?.nom"  >
+             {{tableRes?.next?.nom}}
+    </span>
+
+    <p>
+
+    </p>
+    <div>
+
+    </div>
+    <div *ngIf="tableRes?.minima" style="text-align: center;">
+      <span *ngIf="!tableRes.next" >
+           vous devez payer {{tableRes.minima.montant}}  Ariary
+      </span>
+
+    </div>
+    <div >
+      <form  >
+        <button *ngFor="let choix of tableRes?.listeNextValeurs "
+                (click)="traiter(tableRes.bareme.id,tableRes.listePrevious,tableRes.next.id,choix.id)"
+                class="btnx btn btn-1" >{{choix.libelle}}</button>
+      </form>
+      <button (click)="retour()" class="btn btn-success ">Retour</button>
+    </div>
+
+  </div>
+
+</div>
+
+
