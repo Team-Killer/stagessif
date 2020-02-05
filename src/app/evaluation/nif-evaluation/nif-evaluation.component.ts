@@ -105,4 +105,11 @@ export class NifEvaluationComponent implements OnInit {
   onSubmitContinue(continuer){
     console.log(continuer);
   }
+
+
+  //retour modal
+
+  retour(){
+    this.avoirType=true;
+  }
 }
