@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BaremeService} from "../../services/bareme.service";
+import {BaremCaracService} from "../../services/barem-carac.service";
 
 @Component({
   selector: 'app-baremes',
@@ -26,7 +27,7 @@ export class BaremesComponent implements OnInit {
  ] ;*/
 
  defaultSelect:boolean=false;
-  constructor(private  baremeService:BaremeService) { }
+  constructor(private  baremeService:BaremeService,private  baremCaracService:BaremCaracService) { }
 
   ngOnInit() {
     this.getBaremList();
@@ -163,4 +164,41 @@ export class BaremesComponent implements OnInit {
      })
   }
 
+  /*****Barem caracteristique****/
+  baremeCarac:any[];
+  isClickedAssocie:boolean=false;
+  baremeAssocie :any ={
+     id:null as string,
+     ordre:null as number,
+    nom:null as string,
+     bareme:{
+       id:null as string,
+       nom: null as string,
+       abbrev: null as string,
+       enabled:null as boolean
+     },
+    caracteristique:{
+       id:null as string,
+      nom:null as string,
+      abbrev:null as string,
+      type : null as number
+    }
+  };
+  //nom: "Voitures de Location", abbrev: "VL", enabled: true}
+  // caracteristique: {id: "c07ff184-f880-4f20-a247-b127145cbe8a", nom: "Genre de véhicule", abbrev: "Genre", type: 2
+  nomBareme:string;
+  baremeAssocier(id) {
+    this.baremCaracService.getListCaracteristiqueWithBarem(id).subscribe(e=>{
+        this.baremeCarac=e;
+        this.baremeAssocie=e;
+       //this.nomBareme=.bareme.nom;
+
+       // console.log(this.baremeAssocie[0].bareme.nom);
+        this.isClickedAssocie=true;
+    });
+  }
+
+  onNewBaremCarac(){
+
+  }
 }

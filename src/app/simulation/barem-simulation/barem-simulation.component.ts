@@ -70,5 +70,9 @@ export class BaremSimulationComponent implements OnInit {
     this.enventIs=false;
   }
 
+  baremeAssocier(id){
+
+  }
+
 
 }

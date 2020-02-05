@@ -11,6 +11,7 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 })
 export class NifEvaluationComponent implements OnInit {
   option:boolean=true;
+  valeurParfaut=0;
   nifEtAnne={
     annees: null as string,
     nif: null as string

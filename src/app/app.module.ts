@@ -30,6 +30,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {BaremCaracService} from "./services/barem-carac.service";
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
               AdminParamService,
               CentreFiscalService,
               EvaluationService,
+              BaremCaracService,
     NgbModalConfig,NgbModal
 
      ],
