@@ -50,10 +50,13 @@ export class BaremeService {
      return this.http.post(`${this.server.baseUrl+this.endpointAdmin}/${idBarem}/${this.simuler}`,donnees);
    }
 
-
+                         /***Evaluation***/
    getCaractAssocieBareme(idBarem:string):Observable<any>{
         return this.http.get(`${this.server.baseUrl+this.endpointAdmin}/${idBarem}/${this.caracNumerique}`);
    }
 
+   evaluerData(idBarem:string,donnees:any): Observable<any>{
+     return
+   }
 
 }
