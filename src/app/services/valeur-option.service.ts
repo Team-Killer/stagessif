@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {ServeurService} from "./serveur.service";
 
 @Injectable({
   providedIn: 'root'
@@ -6,5 +7,6 @@ import { Injectable } from '@angular/core';
 export class ValeurOptionService {
 
   private endpointAdmin = '/admin/baremes';
-  constructor() { }
+  private valeurs='valeurs';
+  constructor(private host:ServeurService) { }
 }
