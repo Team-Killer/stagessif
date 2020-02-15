@@ -11,6 +11,8 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 })
 export class NifEvaluationComponent implements OnInit {
   option:boolean=true;
+  mode:boolean=false;
+  montant:number=0;
   valeurParfaut=0;
   nifEtAnne={
     annees: null as string,
@@ -29,21 +31,34 @@ export class NifEvaluationComponent implements OnInit {
 
   dataToPost:any={
     listePrevious:[],
-    selectedCarac:{
-      id:''
-    },
-    selectedVO:{
-      id:''
-    },
     lCaracVehicule:[
-       {
-         idCarac:null, valeur:null
-       },
-       {idCarac: null, valeur:null}
        ]
 
 };
 
+  dataToPost2:any={
+    listePrevious:[],
+    selectedCarac:{
+      id:null as string
+    },
+    selectedVO:{
+      id:null as string
+    },
+    lCaracVehicule:[
+
+    ]
+
+  };
+  /* selectedCarac:{
+      id:null as string
+    },
+    selectedVO:{
+      id:null as string
+    },*/
+
+  CaracVec={
+    idCarac:null as string, valeur:null as string
+  };
 
 
   listeBaremActif :any[];
@@ -60,11 +75,14 @@ export class NifEvaluationComponent implements OnInit {
   ngOnInit() {
     this.contribuale.annee="2019";
     this.choisirBaremes();
+    this.istraiter=false;
   }
-
+  closeResult:string; //pour modal
   open(content) {
     this.modalService.open(content,{size :'lg'});
   }
+
+
 
   choisirBaremes(){
     this.baremeActifService.getBaremListActif().subscribe(e =>{
@@ -102,8 +120,61 @@ export class NifEvaluationComponent implements OnInit {
     });
    }
 
-  onSubmitContinue(continuer){
-    console.log(continuer);
+
+  onSubmitContinue(listCaracVe,id ){
+  let data= {
+      idCarac:"" as string, valeur:"" as string
+    };
+
+  data.idCarac=listCaracVe.idCarac;
+  data.valeur=listCaracVe.valeur;
+  this.dataToPost.lCaracVehicule.push(data);
+
+
+    this.evalTraiter(id,this.dataToPost);
+  }
+  /* idBarem:string="";
+  onGetIdBarem(idBarem:string){
+     idBarem=idBarem;
+  }*/
+
+  tableRes:any[];
+  istraiter:boolean=false;
+  evalTraiter(idBarem,donnee){
+        //console.log(donnee);
+       this.baremeActifService.traiterData(idBarem,donnee).subscribe(
+         e =>{
+               this.tableRes=e;
+               console.log(this.tableRes);
+             this.istraiter=true;
+         }
+       );
+
+
+  }
+
+
+  evalTraiter2(idbarem,lCaracVehicule,idCaract,vo){
+
+    this.dataToPost2.selectedCarac.id=idCaract;
+    this.dataToPost2.selectedVO.id=vo;
+   /* for(let i of lCaracVehicule){
+      this.dataToPost2.lCaracVehicule.push(i);
+    }*/
+    //this.dataToPost2.lCaracVehicule.push(lCaracVehicule);
+
+    console.log(this.dataToPost2);
+    this.dataToPost=this.dataToPost2;
+    this.baremeActifService.traiterData(idbarem,this.dataToPost2).subscribe(
+      e =>{
+        this.tableRes=e;
+        console.log(this.tableRes);
+        this.istraiter=true;
+
+      }
+    );
+
+
   }
 
 
@@ -111,5 +182,11 @@ export class NifEvaluationComponent implements OnInit {
 
   retour(){
     this.avoirType=true;
+    this.istraiter=false;
+  }
+
+  terminer(){
+    this.avoirType=true;
+    this.istraiter=false;
   }
 }

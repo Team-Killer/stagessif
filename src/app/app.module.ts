@@ -31,6 +31,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {BaremCaracService} from "./services/barem-carac.service";
+import { ListVehiculeComponent } from './evaluation/list-vehicule/list-vehicule.component';
+import { NifAnneeImpositionComponent } from './evaluation/nif-annee-imposition/nif-annee-imposition.component';
+import { TablesEvaluerComponent } from './evaluation/tables-evaluer/tables-evaluer.component';
+import { ModalEvaluationComponent } from './evaluation/modal-evaluation/modal-evaluation.component';
+import { AcceuilComponent } from './home/acceuil/acceuil.component';
+import { AcceuilParametrageComponent } from './home/acceuil-parametrage/acceuil-parametrage.component';
+import { LoginComponent } from './home/login/login.component';
+import { HeaderComponent } from './home/header/header.component';
+import {ValeurOptionService} from "./services/valeur-option.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +49,15 @@ import {BaremCaracService} from "./services/barem-carac.service";
     AdminParametrageComponent,
     BaremesComponent,
     NifEvaluationComponent,
-    ParametrageBorneComponent
+    ParametrageBorneComponent,
+    ListVehiculeComponent,
+    NifAnneeImpositionComponent,
+    TablesEvaluerComponent,
+    ModalEvaluationComponent,
+    AcceuilComponent,
+    AcceuilParametrageComponent,
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +80,8 @@ import {BaremCaracService} from "./services/barem-carac.service";
               CentreFiscalService,
               EvaluationService,
               BaremCaracService,
-    NgbModalConfig,NgbModal
+    NgbModalConfig,NgbModal,
+    ValeurOptionService
 
      ],
   bootstrap: [AppComponent]

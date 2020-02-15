@@ -1,1 +1,12 @@
-<p>tables-evaluer works!</p>
+<table>
+  <tr>
+    <th *ngFor="let col of columns">
+      {{col}}
+    </th>
+  </tr>
+  <tr *ngFor="let char of columns ">
+    <td *ngFor="let col of columns">
+      {{char[col]}}
+    </td>
+  </tr>
+</table>

@@ -1,1 +1,17 @@
-<p>acceuil works!</p>
+<div style="margin-top: 40px;">
+  <app-header></app-header>
+</div>
+<div class="container">
+  <div class="card shadow-lg ">
+    <div class="card-header">PARAMETRAGE DES BORNES</div>
+    <div class="card-body">
+      <div *ngFor="let paramGere of paramGerer">
+        <div>
+          <button type="button" (click)="borneChoisi(paramGere.id)"  class="btn btn-success  btn-block" > {{paramGere.nom}}</button>
+
+          <p style="margin-top: 4px;"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

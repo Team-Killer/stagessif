@@ -1,6 +1,15 @@
 // You can add global styles to this file, and also import other style files */
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 @import "~bootstrap/dist/css/bootstrap.min.css";
-
+@import "~tailwindcss/base";
+@import "~tailwindcss/components";
+@import "~tailwindcss/utilities";
+//s@import "assets/vendor/bootstrap/css/bootstrap.min.css";
+@import "assets/vendor/animate/animate.css";
+@import "assets/vendor/css-hamburgers/hamburgers.min.css";
+@import "assets/vendor/select2/select2.min.css";
+@import "assets/css/util.css";
+@import "assets/css/main.css";
+@import "~w3-css/w3.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

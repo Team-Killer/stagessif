@@ -57,7 +57,7 @@
             </div>
           </div>
           <div class="form-group row" style="text-align: right;">
-            <label  class="col-sm-2 col-form-label">Année d'imposition </label>
+            <label  class="col-sm-2 col-form-label">NIF</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" id="nif"
                      required [(ngModel)]="contribuale.nif"  name="nif">
@@ -104,7 +104,25 @@
           <td>Action</td>
         </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="mode">
+      <tr *ngFor="let item of listeContribuable?.vehicules" >
+
+        <td>{{contribuale.annee}}</td>
+        <td>{{item.numImm}}</td>
+        <td>{{item.genre}}</td>
+        <td>{{item.dmc}}</td>
+        <td>{{item.nbPlaces}}</td>
+        <td>{{item.cu}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+        <td>
+          <button  (click)="open(content)"  mat-raised-button  color="accent"><i class=""></i>Evaluer</button>
+        </td>
+      </tr>
+      </tbody>
+        <tbody *ngIf="!mode">
         <tr *ngFor="let item of listeContribuable?.vehicules" >
 
           <td>{{contribuale.annee}}</td>
@@ -113,8 +131,12 @@
           <td>{{item.dmc}}</td>
           <td>{{item.nbPlaces}}</td>
           <td>{{item.cu}}</td>
-          <td></td>
-          <td></td>
+          <td><span *ngIf="tableRes?.bareme">
+                 {{tableRes.bareme.nom}}
+          </span></td>
+          <td><span *ngIf="tableRes?.minima">
+                 {{tableRes.minima.montant}}
+          </span></td>
           <td></td>
 
           <td>
@@ -143,38 +165,91 @@
       </button>
     </div>
     <div class="modal-body">
-      <div *ngIf="avoirType">
-        <form >
-          <button *ngFor="let choix of listeBaremActif "
+      <div *ngIf="!istraiter">
+        <div *ngIf="avoirType">
+          <form >
+            <button *ngFor="let choix of listeBaremActif "
 
-                  class="btn btn-warning btn-lg btn-block"  (click)="getBaremWithCarac(choix.id)"  >{{choix.nom}}</button>
-        </form>
-      </div>
-      <div *ngIf="!avoirType">
-        <div *ngFor="let item of baremeAssocieCarac" >
-          <form   #continuer="ngForm"   (ngSubmit)="onSubmitContinue(continuer.value)">
-
-            <div class="form-group row" style="text-align: right;">
-              <label  class="col-sm-2 col-form-label">{{item.caracteristique.nom}}</label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="valeurParfaut"   name="nom">
-              </div>
-            </div>
-            <input type="hidden" [(ngModel)]="item.bareme.id" name="idBar" [value]="item.bareme.id">
-            <input type="hidden" [(ngModel)]="item.caracteristique.id" name="id" [value]="item.caracteristique.id">
-            <div>
-
-
-              <button class="btn btn-outline-success" style="margin-right: 4px;">Continuer</button>
-            </div>
+                    class="btn btn-warning btn-lg btn-block"  (click)="getBaremWithCarac(choix.id)"  >{{choix.nom}}</button>
           </form>
         </div>
+        <div *ngIf="!avoirType">
+          <div *ngFor="let item of baremeAssocieCarac" >
+            <form   #continuer="ngForm"   (ngSubmit)="onSubmitContinue(continuer.value,item.bareme.id)">
+
+              <div class="form-group row" style="text-align: right;">
+                <input type="hidden" [(ngModel)]="item.caracteristique.id" name="idCarac" [value]="item.caracteristique.id">
+                <label  class="col-sm-2 col-form-label">{{item.caracteristique.nom}}</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" [ngModel]="valeurParfaut"   name="valeur">
+                </div>
+              </div>
+              <!-- <input type="hidden" [(ngModel)]="item.bareme.id" name="idBarem" [value]="item.bareme.id">-->
+
+              <div>
+
+
+                <button class="btn btn-outline-success" style="margin-right: 4px;">Continuer</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
+
+      <!-- coomme similation-->
+      <div *ngIf="istraiter">
+
+        <p>
+
+        </p>
+        <span *ngFor="let item of tableRes?.listePrevious">
+             <span>
+                 <b>{{item.carac.nom}}</b>
+             </span>
+             <span>
+               ( {{item.vo.libelle}} )
+            </span>
+        </span>
+        <span *ngIf="tableRes?.next?.nom">
+             {{tableRes?.next?.nom}}
+        </span>
+        <p>
+
+        </p>
+        <div>
+
+        </div>
+        <div *ngIf="tableRes?.minima" >
+
+          vous devez {{tableRes.minima.montant}}  Ariary
+        </div>
+        <div >
+          <form  *ngIf="!tableRes?.minima" >
+            <button *ngFor="let choix of tableRes?.listeNextValeurs "
+                  (click)="evalTraiter2(tableRes.bareme.id,tableRes.lCaracVehicule,tableRes.next.id,choix.id)"
+                    class="btn btn-warning"  style="margin-right: 6px;">{{choix.libelle}} </button>
+          </form>
+
+        </div>
+      </div>
+      <div >
+
+      </div>
+
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="modal.close('click')">Annuler</button>
-      <button *ngIf="!avoirType" class="btn btn-outline-success" (click)="retour()" style="margin-right: 4px;">Retour</button>
+      <div *ngIf="!tableRes?.minima">
+        <button type="button" class="btn btn-danger" (click)="modal.close('click')">Annuler</button>
+        <button *ngIf="!avoirType" class="btn btn-outline-success" (click)="retour()" style="margin-right: 4px;">Retour</button>
+      </div>
+      <div *ngIf="tableRes?.minima" (click)="modal.dismissAll('Cross click')">
+        <span (click)="terminer()">
+              <button type="button" class="btn btn-danger" (click)="modal.close('click')">Terminer</button>
+        </span>
+
+      </div>
+
     </div>
   </ng-template>
 

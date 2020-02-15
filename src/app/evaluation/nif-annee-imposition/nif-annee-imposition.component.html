@@ -1,1 +1,48 @@
-<p>nif-annee-imposition works!</p>
+<div class="card " >
+  <div class="card-header btn-1  ">Evaluation</div>
+  <div class="card-body">
+    <p class="lead"> Calcul du minima des véhicules suivant les "Barèmes IS Transpoteur"<p>
+    <form #nifEtAnnne="ngForm"   (ngSubmit)="onSubmit(nifEtAnnne.value)">
+      <div class="form-row ">
+          <div class="col">
+            <div class="form-group">
+              <label for="date">Année d'imposition</label>
+              <input type="text" username required class="form-control" [(ngModel)]="contribuale.annee"  name="annee" maxlength="4" minlength="4"
+                     id="date"  #userInput="ngModel" />
+              <div style="margin-top: 10px;" class="alert alert-danger" *ngIf="userInput.invalid && userInput.dirty" >
+                Champ invalide</div>
+
+            </div>
+          </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label for="nif">NIF</label>
+            <input required  maxlength="10" minlength="10" type="text" ngModel name="nif"  class="form-control"
+                   id="nif"
+                   #pdwInput="ngModel"
+            />
+            <div style="margin-top: 10px; color: red;"  *ngIf="pdwInput.invalid && pdwInput.dirty" >le NIF doit avoir 10 caractere</div>
+          </div>
+        </div>
+
+
+
+        <div class="col">
+          <div class="form-group">
+          <button [disabled]="nifEtAnnne.invalid"  class="btn btn-warning" style="margin-top: 30px;">
+            Valider
+          </button>
+          </div>
+        </div>
+
+
+      </div>
+    </form>
+  </div>
+
+<div *ngIf="nifYear">
+  <app-list-vehicule  [value]="nifYear"  [vehicule]="listeContribuable.vehicules" [contribuable]="contribuale" >
+  </app-list-vehicule>
+</div>
+</div>

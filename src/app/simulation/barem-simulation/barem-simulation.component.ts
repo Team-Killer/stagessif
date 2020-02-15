@@ -57,7 +57,7 @@ export class BaremSimulationComponent implements OnInit {
     this.dataToPost.selectedVO.id=vo;
     this.idBarem=barem;
     //alert("" this.dataToPost.listePrevious+ +" ,vo=  "+this.dataToPost.selectedVO.id +"  etcarac= "+this.dataToPost.selectedCarac.id);
-    console.log(this.dataToPost);
+   // console.log(this.dataToPost);
     this.baremesService.baremSelect(this.dataToPost,this.idBarem).subscribe(
       data =>{
         this.tableRes=data;

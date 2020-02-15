@@ -1,5 +1,7 @@
+<app-header></app-header>
+<div class="container" style="margin-top: 50px;">
 <div *ngIf="!isClickedAssocie">
-  <div class="card" *ngIf="option">
+  <div class="card shadow-lg" *ngIf="option">
     <div class="card-header">
       <H1>Baremes</H1>
     </div>
@@ -14,7 +16,7 @@
           <td>action</td>
         </tr>
         </thead>
-        <tbody *ngIf="mode" >
+        <tbody>
         <tr *ngFor="let bareme of listeBaremes">
 
           <td>{{bareme.nom}}</td>
@@ -29,9 +31,11 @@
             <button style="margin-right: 4px;"
                     (click)="editBarem(bareme.id)"  class="btn btn-warning "
                     data-toggle="tooltip" data-placement="left" title="Modifier" ><i class="fa fa-edit"></i></button>
-            <button (click)="isEnabled(bareme.id,bareme.enabled)"
+            <button (click)="isEnabled(bareme.id,bareme.enabled)" data-toggle="tooltip" data-placement="left"
+                    title="Activer"
                     *ngIf="bareme.enabled" style="margin-right: 4px;" class="btn btn-warning "><i class="fa fa-power-off"></i> </button>
-            <button (click)="isEnabled(bareme.id,bareme.enabled)"
+            <button (click)="isEnabled(bareme.id,bareme.enabled)" data-toggle="tooltip" data-placement="left"
+                    title="desactiver"
                     *ngIf="!bareme.enabled" class="btn btn-warning "><i class="fa fa-lightbulb"></i> </button>
             <button (click)="baremeAssocier(bareme.id)"  style="margin-left: 4px;"
                     class="btn btn-warning " data-toggle="tooltip" data-placement="left"
@@ -41,27 +45,7 @@
         </tr>
 
         </tbody>
-        <tbody *ngIf="!mode">
-        <tr *ngFor="let bareme of listeBaremes">
 
-          <td>{{bareme.nom}}</td>
-          <td>{{bareme.abbrev}}</td>
-          <td *ngIf="bareme.enabled">
-            Activer
-          </td>
-          <td *ngIf="!bareme.enabled">
-            Desactiver
-          </td>
-          <td>
-            <button style="margin-right: 4px;"  (click)="editBarem(bareme.id)" class="btn btn-warning "
-                    data-toggle="tooltip" data-placement="left" title="Modifier"><i class="fa fa-edit"></i></button>
-            <button (click)="isEnabled(bareme.id,bareme.enabled)"
-                    *ngIf="bareme.enabled" style="margin-right: 4px;" class="btn btn-warning "><i class="fa fa-power-off"></i> </button>
-            <button (click)="isEnabled(bareme.id,bareme.enabled)" *ngIf="!bareme.enabled" class="btn btn-warning "><i class="fa fa-lightbulb"></i> </button>
-          </td>
-        </tr>
-
-        </tbody>
 
 
       </table>
@@ -73,11 +57,11 @@
   </div>
 
 
-  <div class="panel panel-warning" *ngIf="!option">
-    <div class="panel-heading">
+  <div class="card shadow-lg" *ngIf="!option">
+    <div class="card-header">
       <H1>{{addOrEdit}}</H1>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <div style="margin-top: 10px;">
         <form  #barem="ngForm" (ngSubmit)="onSubmit(barem.value)">
           <div  class="form-group">
@@ -104,43 +88,80 @@
   </div>
 </div>
 
+  <!--traitement bareme caracteristique  -->
 <div *ngIf="isClickedAssocie">
-  <div class="card">
-        <div class="card-header"><h2>Liste Caracteristiques asocier {{baremeAssocie[0]?.bareme?.nom}}  </h2></div>
+  <div class="card shadow-lg">
+        <div class="card-header"><h2>Liste Caracteristiques asocier {{bareme.nom}}  </h2></div>
         <div class="card-body">
 
           <table class="table  table-condensed table-striped table-bordered table-hover ">
             <thead>
             <tr>
 
-              <td>nom</td>
+              <td>Nom</td>
               <td>Abbreviation</td>
-              <td>type</td>
+              <td>Type</td>
+              <td>Ordre</td>
               <td>action</td>
             </tr>
             </thead>
             <tbody >
-            <tr *ngFor="let carac of baremeCarac">
+            <tr *ngFor="let carac of baremeAssocie">
 
               <td>{{carac.caracteristique.nom}}</td>
-              <td>{{carac.caracteristique.abbrev}}</td>
+              <td>{{carac.caracteristique.abbrev}}  </td>
               <td >
                 {{carac.caracteristique.type}}
+              </td>
+              <td >
+                 {{carac.ordre}}
               </td>
 
               <td>
                 <button   style="margin-left: 4px;"
                           class="btn btn-warning " data-toggle="tooltip" data-placement="left"
-                          title="caracteristique "><i class="fa fa-object-group"></i>
+                          title="Gerer les valeurs"><i class="fa fa-cogs"></i>
+                </button>
+                <button   style="margin-left: 4px;"
+                          (click)="deleteBaremCarac(bareme.id,carac.caracteristique.id)"
+                          class="btn btn-warning " data-toggle="tooltip" data-placement="right"
+                          title="Supprimer "><i class="fa fa-trash-restore"></i>
                 </button>
               </td>
             </tr>
             </tbody>
 
           </table>
-          <button class="btn btn-success" (click)="onNewBaremCarac()" ><i class="fa fa-plus"></i>Nouveau</button>
+          <button class="btn btn-success" onclick="document.getElementById('id01').style.display='block'"
+                  (click)="onNewBaremCarac(bareme.id)" ><i class="fa fa-plus"></i>Nouveau</button>
+          <button style="margin-left: 4px;" class="btn btn-success" (click)="isClickedAssocie=false" ><i class="fa fa-angle-left"></i>Retour</button>
         </div>
+
+
+    <div id="id01" class="w3-modal">
+      <div class="w3-modal-content w3-animate-left w3-animate-opacity">
+        <header class="w3-container w3-teal">
+        <span onclick="document.getElementById('id01').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+          <h2>Ajouter</h2>
+        </header>
+        <div class="w3-container">
+          <form action="">
+            <span *ngFor="let caractNotBin of baremeAssocie.caracteristique">
+              <button  onclick="document.getElementById('id01').style.display='none'"
+                (click)="createbaremCarac(caractNotBin.id,bareme.id)"  style="margin-right: 9px;"
+                       class="btn btn-warning w3-margin-top w3-margin-bottom">{{caractNotBin.nom}}
+              </button>
+            </span>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
 
   </div>
 
 </div>
+</div>
+

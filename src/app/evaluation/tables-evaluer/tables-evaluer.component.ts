@@ -8,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class TablesEvaluerComponent implements OnInit {
 
   constructor() { }
-
+  columns: string[];
   ngOnInit() {
+    this.columns=this.getColumns();
   }
+
+  getColumns(): string[]{
+    return ["Année d'imposition", "Vehicules", "Date de mise en circulation", "Nombre de place","","Charge Utile en (t)","Barème appliqué "
+        ,"Minima(en ariary)","Montant a payer","Action"
+    ]};
 
 }

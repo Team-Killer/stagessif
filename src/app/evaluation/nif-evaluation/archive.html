@@ -1,0 +1,254 @@
+<div >
+  <div *ngIf="option" >
+    <div class="card ">
+      <div class="card-header btn-1  ">Evaluation</div>
+      <div class="card-body">
+        <p class="lead"> Calcul du minima des véhicules suivant les "Barèmes IS Transpoteur"<p>
+        <form #nifEtAnnne="ngForm"   (ngSubmit)="onSubmit(nifEtAnnne.value)">
+          <div class="form-group">
+
+            <label for="date">Année d'imposition</label>
+            <input type="text" username required class="form-control" [(ngModel)]="contribuale.annee"  name="annee" maxlength="4" minlength="4"
+                   id="date"  #userInput="ngModel" />
+            <div style="margin-top: 10px;" class="alert alert-danger" *ngIf="userInput.invalid && userInput.dirty" >
+              Champ invalide</div>
+            <!-- <div >
+                <div *ngIf="f.username.errors.required">Username is required</div>
+            </div> -->
+          </div>
+          <div class="form-group">
+            <label for="nif">NIF</label>
+            <input required  maxlength="10" minlength="10" type="text" ngModel name="nif"  class="form-control"
+                   id="nif"
+                   #pdwInput="ngModel"
+            />
+            <div style="margin-top: 10px;" class="alert alert-danger" *ngIf="pdwInput.invalid && pdwInput.dirty" >le NIF doit avoir 10 caractere</div>
+            <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Password is required</div>
+            </div> -->
+          </div>
+          <!--  <button [disabled]="loading" class="btn btn-primary"> -->
+          <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+          <button [disabled]="nifEtAnnne.invalid"  class="btn btn-warning">
+            Valider
+          </button>
+
+          <!-- <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--miraraka-->
+  <div *ngIf="isEvalClicked">
+
+  </div>
+  <div class="card" *ngIf="!option">
+    <div class="card-header">
+      <H4>Calcul du minima des vehicules suivants les "Baremes IS Transporteur"</H4>
+    </div>
+    <div class="card-body">
+      <div>
+        <form>
+          <div class="form-group row" style="text-align: right;">
+            <label  class="col-sm-2 col-form-label">Année d'imposition</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="annee"
+                     required [(ngModel)]="contribuale.annee"  name="annee">
+            </div>
+          </div>
+          <div class="form-group row" style="text-align: right;">
+            <label  class="col-sm-2 col-form-label">Année d'imposition </label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="nif"
+                     required [(ngModel)]="contribuale.nif"  name="nif">
+            </div>
+          </div>
+          <div class="form-group row" style="text-align: right;">
+            <label  class="col-sm-2 col-form-label">contribuable</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="rsoc"
+                     required [(ngModel)]="contribuale.rsoc"  name="rsoc" readonly>
+            </div>
+          </div>
+
+
+        </form>
+        <div class="form-group row"  >
+          <label  class="col-sm-2 col-form-label">CA annuel</label>
+          <div class="col-sm-4" >
+            <input type="text" class="form-control" id="CA"
+                   name="CA">
+          </div>
+          <div class="custom-control custom-switch col-sm-6">
+            <label for="" style="margin-right: 10px;">Tenue  de registre de depenses & recette cotéé et  parapheé</label>
+            <mat-slide-toggle ></mat-slide-toggle>
+
+          </div>
+        </div>
+
+      </div>
+
+      <table class="table  table-condensed table-striped table-bordered table-hover ">
+        <thead>
+        <tr>
+
+          <td>Année d'imposition</td>
+          <td>Vehicules</td>
+          <td>Genre</td>
+          <td>Date de mise en circulation</td>
+          <td>Nombre de place </td>
+          <td>Charge Utile en (t) </td>
+          <td>Barème appliqué </td>
+          <td>Minima(en ariary)</td>
+          <td>Montant à payer</td>
+          <td>Action</td>
+        </tr>
+        </thead>
+        <tbody *ngIf="mode">
+        <tr *ngFor="let item of listeContribuable?.vehicules" >
+
+          <td>{{contribuale.annee}}</td>
+          <td>{{item.numImm}}</td>
+          <td>{{item.genre}}</td>
+          <td>{{item.dmc}}</td>
+          <td>{{item.nbPlaces}}</td>
+          <td>{{item.cu}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+          <td>
+            <button  (click)="open(content)"  mat-raised-button  color="accent"><i class=""></i>Evaluer</button>
+          </td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="!mode">
+        <tr *ngFor="let item of listeContribuable?.vehicules" >
+
+          <td>{{contribuale.annee}}</td>
+          <td>{{item.numImm}}</td>
+          <td>{{item.genre}}</td>
+          <td>{{item.dmc}}</td>
+          <td>{{item.nbPlaces}}</td>
+          <td>{{item.cu}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+          <td>
+            <button  (click)="open(content)"  mat-raised-button  color="accent"><i class=""></i>Evaluer</button>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="8" style="text-align: right;">Total</td>
+          <td></td>
+        </tr>
+        </tfoot>
+      </table>
+
+    </div>
+
+
+  </div>
+  <!---evqluer -c="close" let-d="dismiss"  (click)="c('Save click')"-->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Evaluer</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="!istraiter">
+        <div *ngIf="avoirType">
+          <form >
+            <button *ngFor="let choix of listeBaremActif "
+
+                    class="btn btn-warning btn-lg btn-block"  (click)="getBaremWithCarac(choix.id)"  >{{choix.nom}}</button>
+          </form>
+        </div>
+        <div *ngIf="!avoirType">
+          <div *ngFor="let item of baremeAssocieCarac" >
+            <form   #continuer="ngForm"   (ngSubmit)="onSubmitContinue(continuer.value,item.bareme.id)">
+
+              <div class="form-group row" style="text-align: right;">
+                <input type="hidden" [(ngModel)]="item.caracteristique.id" name="idCarac" [value]="item.caracteristique.id">
+                <label  class="col-sm-2 col-form-label">{{item.caracteristique.nom}}</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" [ngModel]="valeurParfaut"   name="valeur">
+                </div>
+              </div>
+              <!-- <input type="hidden" [(ngModel)]="item.bareme.id" name="idBarem" [value]="item.bareme.id">-->
+
+              <div>
+
+
+                <button class="btn btn-outline-success" style="margin-right: 4px;">Continuer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- coomme similation-->
+      <div *ngIf="istraiter">
+
+        <p>
+
+        </p>
+        <span *ngFor="let item of tableRes?.listePrevious">
+             <span>
+                 <b>{{item.carac.nom}}</b>
+             </span>
+             <span>
+               ( {{item.vo.libelle}} )
+            </span>
+        </span>
+        <span *ngIf="tableRes?.next?.nom">
+             {{tableRes?.next?.nom}}
+        </span>
+        <p>
+
+        </p>
+        <div>
+
+        </div>
+        <div *ngIf="tableRes?.minima">
+          vous devez {{tableRes.minima.montant}}  Ariary
+        </div>
+        <div >
+          <form  *ngIf="!tableRes?.minima" >
+            <button *ngFor="let choix of tableRes?.listeNextValeurs "
+                    (click)="evalTraiter2(tableRes.bareme.id,tableRes.lCaracVehicule,tableRes.next.id,choix.id)"
+                    class="btn btn-warning"  style="margin-right: 6px;">{{choix.libelle}} </button>
+          </form>
+
+        </div>
+      </div>
+      <div >
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <div *ngIf="!tableRes?.minima">
+        <button type="button" class="btn btn-danger" (click)="modal.close('click')">Annuler</button>
+        <button *ngIf="!avoirType" class="btn btn-outline-success" (click)="retour()" style="margin-right: 4px;">Retour</button>
+      </div>
+      <div *ngIf="tableRes?.minima" (click)="modal.dismissAll('Cross click')">
+        <span (click)="terminer()">
+              <button type="button" class="btn btn-danger" (click)="modal.close('click')">Terminer</button>
+        </span>
+
+      </div>
+
+    </div>
+  </ng-template>
+
+
+
+</div>
+

@@ -11,7 +11,12 @@ export class BaremesComponent implements OnInit {
   mode:boolean =true;
   option:boolean = true;
   addOrEdit:string;
-  listeBaremes:any[];
+  listeBaremes=
+    [{ id:null as string,
+  nom: null as string,
+  abbrev: null as string,
+  enabled:null as boolean}
+  ];
   bareme={
     id: null as string,
     nom: null as string,
@@ -72,17 +77,17 @@ export class BaremesComponent implements OnInit {
       console.log(e);
 
             this.getBaremList();
-            this.mode=false;
+          //  this.mode=false;
       this.bareme.nom=null;
       this.bareme.abbrev=null;
-      this.bareme.id=null;
+     // this.bareme.id=null;
     });
     this.option=true;
 
 
   }
 
-  getBarem(id:string) {
+  getBareme(id:string) {
     this.baremeService.getBarem(id).subscribe(e =>{
       //console.log(e);
       this.bareme=e;
@@ -156,7 +161,7 @@ export class BaremesComponent implements OnInit {
      this.baremeService.updateBarem(this.bareme.id,this.bareme).subscribe(e =>{
       // console.log(e);
        this.getBaremList();
-       this.mode=false;
+      // this.mode=false;
        this.option=true;
        this.bareme.nom=null;
        this.bareme.abbrev=null;
@@ -184,21 +189,54 @@ export class BaremesComponent implements OnInit {
       type : null as number
     }
   };
-  //nom: "Voitures de Location", abbrev: "VL", enabled: true}
-  // caracteristique: {id: "c07ff184-f880-4f20-a247-b127145cbe8a", nom: "Genre de véhicule", abbrev: "Genre", type: 2
-  nomBareme:string;
+
+
   baremeAssocier(id) {
     this.baremCaracService.getListCaracteristiqueWithBarem(id).subscribe(e=>{
         this.baremeCarac=e;
         this.baremeAssocie=e;
-       //this.nomBareme=.bareme.nom;
-
-       // console.log(this.baremeAssocie[0].bareme.nom);
+        console.log(this.baremeAssocie);
         this.isClickedAssocie=true;
+    });
+    this.getBarem(id);
+  }
+
+  getBarem(id){
+    this.baremeService.getBarem(id).subscribe(
+      e =>{
+                 this.bareme=e;
+                 console.log(this.bareme);
+                }
+    );
+  }
+  idBarem:string;
+  onNewBaremCarac(id){
+
+      this.baremCaracService.getCaracNotBindBareme(id).subscribe(
+        e =>{
+          console.log(e);
+       this.baremeAssocie.caracteristique=e;
+          console.log(this.baremeAssocie.caracteristique)}
+      );
+  }
+
+  createbaremCarac(idCarac,idBarem){
+   var data=null;
+    this.baremCaracService.createBaremeCaracteristique(data,idBarem,idCarac).subscribe(e =>{
+         this.baremeAssocier(idBarem);
+        console.log(e)
     });
   }
 
-  onNewBaremCarac(){
-
+  /***delete bareme caracteristiqque **/
+  deleteBaremCarac(idBarem,idCarac){
+    alert("barem= "+ idBarem +" caracteristique= " +idCarac );
+         this.baremCaracService.deleteBaremeCaracteristique(idBarem,idCarac).subscribe(
+           e =>{
+                this.baremeAssocie=e;
+                 this.baremeAssocier(idBarem);
+                 console.log(e);
+           }
+         );
   }
 }

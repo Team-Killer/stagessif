@@ -1,1 +1,157 @@
-<p>list-vehicule works!</p>
+
+<table class="table  table-condensed table-striped table-bordered  table-hover  col-md-8">
+  <thead>
+  <tr >
+    <td>Année d'imposition</td>
+    <td>Vehicules</td>
+    <td>Genre</td>
+    <td>Date de mise en circulation</td>
+    <td>Nombre de place </td>
+    <td>Charge Utile en (t) </td>
+    <td>Barème appliqué </td>
+    <td>Minima(en ariary)</td>
+    <td>Montant à payer</td>
+    <td>Action</td>
+  </tr>
+  </thead>
+
+  <tbody *ngFor="let propoVe of vehicule;trackBy:trackedByNumImm;let i=index;let isFisrt=first;let isLast=last;">
+
+  <tr>
+
+    <td>{{contribuable.annee}}</td>
+    <td  >{{propoVe.numImm}}</td>
+    <td>{{propoVe.genre}}</td>
+    <td>{{propoVe.dmc}}</td>
+    <td>{{propoVe.nbPlaces}}</td>
+    <td>{{propoVe.cu}}</td>
+    <td >
+      <div *ngFor="let imm of numImm">
+        <p *ngIf="i==imm">{{tableResCopie?.bareme.nom}}</p>
+      </div>
+      <p *ngIf="isNotImm"></p>
+    </td>
+    <td>
+      <div *ngFor="let imm of numImm">
+        <p *ngIf="i==imm">{{tableResCopie?.minima?.montant}}</p>
+      </div>
+      <p *ngIf="isNotImm"></p>
+    </td>
+    <td >
+      <div *ngFor="let imm of numImm">
+        <p *ngIf="i==imm">{{tableResCopie?.minima?.montant}}</p>
+      </div>
+      <p *ngIf="isNotImm"></p>
+    </td>
+
+
+    <td  (click)="showModal=true" data-toggle="modal" data-target="#myModal">
+      <button type="button"  class="btn btn btn-outline-success" (click)="getIndex(i)">Evaluer</button>
+    </td>
+  </tr>
+
+
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="8" style="text-align: right;">Total</td>
+    <td>{{tableRes?.minima?.montant}}</td>
+  </tr>
+  </tfoot>
+</table>
+
+
+
+<!-- The Modal -->
+<div class="modal  fade" id="myModal" [ngClass]="{'show':showModal }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Evaluation</h4>
+        <button type="button" class="close" (click)="closeModal()" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div *ngIf="!isCaractere">
+          <form >
+            <button *ngFor="let choix of listeBaremActif"
+
+                    class="btn btn-warning btn-lg btn-block"  (click)="getBaremWithCarac(choix.id)"  >{{choix.nom}}
+            </button>
+          </form>
+        </div>
+
+        <div class="" *ngIf="isCaractere">
+        <div *ngIf="!istraiter">
+          <div *ngFor="let item of baremeAssocieCarac" >
+            <form   #continuer="ngForm"   (ngSubmit)="onSubmitContinue(continuer.value,item.bareme.id)">
+
+              <div class="form-group row" style="text-align: right;">
+                <input type="hidden" [(ngModel)]="item.caracteristique.id" name="idCarac" [value]="item.caracteristique.id">
+                <label  class="col-sm-2 col-form-label">{{item.caracteristique.nom}}</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" ngModel   name="valeur">
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-outline-success" style="margin-right: 4px;">Continuer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+          <!-- valeur caract-->
+          <div *ngIf="istraiter">
+          <div >
+            <span *ngFor="let item of tableRes?.listePrevious">
+               <span>
+                   <b>{{item.carac.nom}}</b>
+               </span>
+               <span>
+                 ( {{item.vo.libelle}} )
+              </span>
+          </span>
+
+            <!-- nom Caracteristiques-->
+            <span *ngIf="tableRes?.next?.nom">
+              <b>{{tableRes?.next?.nom}}</b>
+            </span>
+            <br>
+            <div *ngIf="tableRes?.minima">
+              vous devez {{tableRes.minima.montant}}  Ariary
+            </div>
+          </div>
+            <!-- valeur option de caracteristique -->
+            <div >
+              <form  *ngIf="!tableRes?.minima" >
+                <button *ngFor="let choix of tableRes?.listeNextValeurs "
+                        (click)="evalTraiter2(tableRes.bareme.id,tableRes.lCaracVehicule,tableRes.next.id,choix.id)"
+                        class="btn btn-warning"  style="margin-right: 6px;">{{choix.libelle}} </button>
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-danger" (click)="closeModal()" data-dismiss="modal">Annuler</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

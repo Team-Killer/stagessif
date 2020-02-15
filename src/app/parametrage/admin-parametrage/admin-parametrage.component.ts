@@ -68,7 +68,7 @@ export class AdminParametrageComponent implements OnInit {
     this.parametrageService.getListParametrage().subscribe(
       data =>{
            this.parametrage=data;
-           //console.log(this.parametrage);
+           console.log(this.parametrage);
 
     });
      //this.getCentreFiscalList();
@@ -94,6 +94,7 @@ export class AdminParametrageComponent implements OnInit {
    // console.log(this.parametrage);
     this.parametrageService.updateParametrage(this.paramUp).subscribe(e =>{
       console.log(e);
+      this.getParametrageList();
     });
     this.isCliked=true;
   }
