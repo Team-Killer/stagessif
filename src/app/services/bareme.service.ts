@@ -12,6 +12,7 @@ export class BaremeService {
   private enable='activer';
   private desable='/desactiver';
   private simuler='simuler';
+  private evaluer='evaluer';
   private  caracNumerique='caracs-numeriques';
 //admin/baremes/{id_bareme}/caracs-numeriques
   constructor(private server:ServeurService , private http:HttpClient) { }
@@ -52,11 +53,14 @@ export class BaremeService {
 
                          /***Evaluation***/
    getCaractAssocieBareme(idBarem:string):Observable<any>{
-        return this.http.get(`${this.server.baseUrl+this.endpointAdmin}/${idBarem}/${this.caracNumerique}`);
+        return this.http.get(`${this.server.baseUrl+this.endpoint}/${idBarem}/${this.caracNumerique}`);
    }
 
    evaluerData(idBarem:string,donnees:any): Observable<any>{
-     return
+     return this.http.post(`${this.server.baseUrl+this.endpoint}/${idBarem}/${this.evaluer}`,donnees);
    }
 
+   traiterData(idBarem:string,donnees:any): Observable<any>{
+     return this.http.post(`${this.server.baseUrl+this.endpoint}/${idBarem}/${this.evaluer}`,donnees);
+   }
 }

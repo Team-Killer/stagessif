@@ -9,6 +9,7 @@ import {Observable} from "rxjs";
 export class EvaluationService {
   private contribuable='/contribuables';
   private vehicule ='vehicules';
+  protected vehicules : Observable<any[]>;
   constructor(private server:ServeurService,private  http:HttpClient) { }
 
   getContribuable(nif: string , annee: number): Observable<any>{
